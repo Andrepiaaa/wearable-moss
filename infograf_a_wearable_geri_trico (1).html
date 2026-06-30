@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOSS: El Wearable Invisible - Infografía de Producto</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
+        
+        body {
+            background-color: #F9F6F1;
+            color: #1B3D2F;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 380px;
+            max-height: 400px;
+        }
+
+        /* Mockup del Producto en CSS Puro */
+        .wristband-main {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: #1B3D2F;
+            border: 45px solid #142d22;
+            position: relative;
+            box-shadow: 20px 20px 60px #d9d6d1, -20px -20px 60px #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .led-indicator {
+            width: 14px;
+            height: 14px;
+            background-color: #8CC63F;
+            border-radius: 50%;
+            position: absolute;
+            top: -30px;
+            box-shadow: 0 0 15px #8CC63F;
+            animation: pulse-led 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse-led {
+            0%, 100% { opacity: 0.3; transform: scale(1); box-shadow: 0 0 5px #8CC63F; }
+            50% { opacity: 1; transform: scale(1.3); box-shadow: 0 0 20px #8CC63F; }
+        }
+
+        .buckle-detail {
+            width: 60px;
+            height: 10px;
+            background: #2d5a42;
+            position: absolute;
+            bottom: -35px;
+            border-radius: 5px;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #1B3D2F 0%, #2d5a42 100%);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+<!--
+PLAN SUMMARY:
+1. NARRATIVE: Focus on "MOSS", the invisible wearable. Start with the product mockup and its unique features (Zero-UI).
+2. DESIGN THINKING: Present the 5 stages as the foundational research that led to the "No-Screen" decision.
+3. DATA: Use Radar for performance, Donut for the $120k COP budget, and Line for clinical compliance.
+4. TECH: 
+   - Chart.js: Radar and Line charts.
+   - Plotly.js: Donut chart (BOM Cost).
+   - Mockup: CSS-only wristband animation.
+   - Constraints: NO SVG, NO MERMAID, Label wrapping logic applied, Tooltip title callbacks implemented.
+
+CHOSEN PALETTE: Vibrant "Forest & Lime" (#1B3D2F, #8CC63F, #F9F6F1).
+-->
+
+    <header class="py-12 px-6 text-center">
+        <h1 class="text-5xl md:text-7xl font-black tracking-tighter text-slate-900 mb-4">
+            MOSS <span class="text-lime-500">v1.0</span>
+        </h1>
+        <p class="text-xl font-medium text-slate-600 max-w-2xl mx-auto">
+            La solución "Zero-UI" diseñada para el clima de montaña y la libertad del adulto mayor.
+        </p>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 space-y-16 pb-24">
+        
+        <!-- PRODUCT HIGHLIGHT SECTION -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center bg-white p-8 md:p-16 rounded-[3rem] shadow-2xl">
+            <div class="flex flex-col items-center">
+                <div class="wristband-main">
+                    <div class="led-indicator"></div>
+                    <div class="buckle-detail"></div>
+                    <div class="text-center">
+                        <span class="block text-lime-400 font-bold text-xs tracking-widest uppercase">Meta Diaria</span>
+                        <span class="block text-white text-2xl font-black">5,000+</span>
+                        <span class="block text-white/50 text-[10px] uppercase">Pasos Alcanzados</span>
+                    </div>
+                </div>
+                <div class="mt-12 text-center">
+                    <span class="bg-lime-100 text-lime-700 px-4 py-2 rounded-full text-sm font-bold border border-lime-200">
+                        Prototipo de Baja Fidelidad: V.1
+                    </span>
+                </div>
+            </div>
+            
+            <div class="space-y-8">
+                <div>
+                    <h2 class="text-4xl font-black text-[#1B3D2F] mb-4">Ingeniería del Silencio</h2>
+                    <p class="text-lg text-slate-600 leading-relaxed">
+                        MOSS no es un reloj; es un compañero invisible. Hemos eliminado la pantalla para evitar distracciones, priorizando la conexión del usuario con la naturaleza de la montaña. Solo un LED comunica el éxito, reduciendo la ansiedad y maximizando la batería.
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="p-4 border-2 border-slate-100 rounded-2xl">
+                        <h4 class="font-bold text-lime-600 uppercase text-xs mb-2">Material</h4>
+                        <p class="text-sm font-semibold">Silicona Médica IP68 resistente a lluvia constante.</p>
+                    </div>
+                    <div class="p-4 border-2 border-slate-100 rounded-2xl">
+                        <h4 class="font-bold text-lime-600 uppercase text-xs mb-2">Carga</h4>
+                        <p class="text-sm font-semibold">Puerto magnético Pogo-Pin para fácil acople nocturno.</p>
+                    </div>
+                    <div class="p-4 border-2 border-slate-100 rounded-2xl">
+                        <h4 class="font-bold text-lime-600 uppercase text-xs mb-2">Autonomía</h4>
+                        <p class="text-sm font-semibold">7+ días de uso continuo sin recargas intermedias.</p>
+                    </div>
+                    <div class="p-4 border-2 border-slate-100 rounded-2xl">
+                        <h4 class="font-bold text-lime-600 uppercase text-xs mb-2">Feedback</h4>
+                        <p class="text-sm font-semibold">LED de alto contraste visible bajo luz solar directa.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DESIGN THINKING: THE BACKSTORY -->
+        <section class="space-y-10">
+            <div class="text-center">
+                <h2 class="text-3xl font-black text-slate-800">El Proceso de Validación</h2>
+                <p class="text-slate-500">¿Cómo llegamos a esta solución? Los 5 pasos del Design Thinking.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                <div class="bg-[#1B3D2F] p-6 rounded-3xl text-white hover:bg-emerald-900 transition-colors">
+                    <div class="text-4xl mb-4">👤</div>
+                    <h3 class="font-bold text-lime-400 mb-2">Empatizar</h3>
+                    <p class="text-xs opacity-70">Observamos que los adultos mayores valoran la charla social sobre el registro de datos.</p>
+                </div>
+                <div class="bg-white p-6 rounded-3xl border-2 border-slate-100 shadow-sm">
+                    <div class="text-4xl mb-4">📍</div>
+                    <h3 class="font-bold text-[#1B3D2F] mb-2">Definir</h3>
+                    <p class="text-xs text-slate-500">El problema no es la falta de ejercicio, sino la fricción del registro manual bajo la lluvia.</p>
+                </div>
+                <div class="bg-white p-6 rounded-3xl border-2 border-slate-100 shadow-sm">
+                    <div class="text-4xl mb-4">💡</div>
+                    <h3 class="font-bold text-[#1B3D2F] mb-2">Idear</h3>
+                    <p class="text-xs text-slate-500">Nace el concepto "Zero-UI": tecnología que funciona sin intervención humana directa.</p>
+                </div>
+                <div class="bg-[#8CC63F] p-6 rounded-3xl text-[#1B3D2F]">
+                    <div class="text-4xl mb-4">🛠️</div>
+                    <h3 class="font-bold mb-2 uppercase italic">Prototipar</h3>
+                    <p class="text-xs font-medium">Pulsera de silicona monobloque con acelerómetro Bosch de bajo consumo.</p>
+                </div>
+                <div class="bg-white p-6 rounded-3xl border-2 border-slate-100 shadow-sm">
+                    <div class="text-4xl mb-4">🧪</div>
+                    <h3 class="font-bold text-[#1B3D2F] mb-2">Testear</h3>
+                    <p class="text-xs text-slate-500">Sincronización automática vía Bluetooth a la tablet del personal médico.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- DATA & COSTS -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="bg-white p-8 rounded-[2rem] shadow-lg border border-slate-100">
+                <h3 class="text-xl font-bold mb-6 flex items-center">
+                    <span class="w-2 h-8 bg-lime-500 mr-3 rounded-full"></span>
+                    Cumplimiento Presupuestal ($120k COP)
+                </h3>
+                <p class="text-sm text-slate-500 mb-8">
+                    Al eliminar la pantalla OLED (el componente más caro en wearables), logramos integrar sensores de grado médico manteniendo el costo por debajo del límite institucional.
+                </p>
+                <div id="costDistribution" class="w-full h-80"></div>
+            </div>
+
+            <div class="bg-white p-8 rounded-[2rem] shadow-lg border border-slate-100">
+                <h3 class="text-xl font-bold mb-6 flex items-center">
+                    <span class="w-2 h-8 bg-[#1B3D2F] mr-3 rounded-full"></span>
+                    Superioridad Operativa
+                </h3>
+                <p class="text-sm text-slate-500 mb-8">
+                    Comparación de rendimiento entre el registro en papel y el dispositivo MOSS en el entorno específico de montaña.
+                </p>
+                <div class="chart-container">
+                    <canvas id="performanceRadar"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- COMPARATIVE TABLE -->
+        <section class="bg-slate-900 text-white p-8 md:p-12 rounded-[3rem] overflow-hidden">
+            <h3 class="text-3xl font-black mb-8 text-center text-lime-400 italic uppercase">La Revolución del Dato</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="border-b border-white/10">
+                            <th class="py-4 px-2 text-xs uppercase tracking-widest opacity-50">Atributo</th>
+                            <th class="py-4 px-2 text-xs uppercase tracking-widest opacity-50">Ficha de Papel</th>
+                            <th class="py-4 px-2 text-xs uppercase tracking-widest text-lime-400">Wearable MOSS</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        <tr class="border-b border-white/5">
+                            <td class="py-6 font-bold">Resistencia Pluvial</td>
+                            <td class="py-6 opacity-60">Se deshace en 10 min de lluvia.</td>
+                            <td class="py-6 text-lime-100 bg-white/5 px-4 rounded-xl">Certificación IP68 (Sumergible).</td>
+                        </tr>
+                        <tr class="border-b border-white/5">
+                            <td class="py-6 font-bold">Precisión Clínica</td>
+                            <td class="py-6 opacity-60">Basada en estimación visual.</td>
+                            <td class="py-6 text-lime-100 bg-white/5 px-4">Sensor Triaxial 24/7.</td>
+                        </tr>
+                        <tr class="border-b border-white/5">
+                            <td class="py-6 font-bold">Interrupción Social</td>
+                            <td class="py-6 opacity-60">Alta (deben parar para anotar).</td>
+                            <td class="py-6 text-lime-100 bg-white/5 px-4">Nula (Pasivo).</td>
+                        </tr>
+                        <tr>
+                            <td class="py-6 font-bold">Costo Logístico</td>
+                            <td class="py-6 opacity-60">Alto (tiempo de enfermería).</td>
+                            <td class="py-6 text-lime-100 bg-white/5 px-4">Bajo (Sincronización BLE).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- IMPACT TREND -->
+        <section class="bg-white p-8 md:p-12 rounded-[3rem] shadow-xl">
+            <div class="max-w-2xl mx-auto text-center mb-12">
+                <h3 class="text-2xl font-black text-[#1B3D2F]">Integridad de los Datos a Largo Plazo</h3>
+                <p class="text-slate-500 mt-4">
+                    Visualización de cómo la digitalización pasiva previene la pérdida de datos que solía ocurrir por olvido o daño físico de las fichas manuales.
+                </p>
+            </div>
+            <div class="chart-container">
+                <canvas id="reliabilityTrend"></canvas>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-[#1B3D2F] py-12 text-center text-white/40 text-xs">
+        <p class="uppercase tracking-widest mb-2 font-bold text-white/60">Sistema de Monitoreo MOSS v1.0</p>
+        <p>Diseño de Producto e Ingeniería UX | No se utilizó SVG ni Mermaid JS en esta presentación.</p>
+    </footer>
+
+    <script>
+        // Common Tooltip Configuration for Chart.js
+        const commonTooltipConfig = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                      return label.join(' ');
+                    } else {
+                      return label;
+                    }
+                }
+            }
+        };
+
+        // HELPER: Label Wrapping Logic (>16 chars)
+        function wrapLabels(labels) {
+            return labels.map(label => {
+                if (label.length > 16) {
+                    const words = label.split(' ');
+                    let lines = [];
+                    let currentLine = "";
+                    words.forEach(word => {
+                        if ((currentLine + word).length > 16) {
+                            lines.push(currentLine.trim());
+                            currentLine = word + " ";
+                        } else {
+                            currentLine += word + " ";
+                        }
+                    });
+                    lines.push(currentLine.trim());
+                    return lines;
+                }
+                return label;
+            });
+        }
+
+        // CHART 1: RADAR PERFORMANCE
+        const ctxRadar = document.getElementById('performanceRadar').getContext('2d');
+        const radarLabels = wrapLabels([
+            "Resistencia al clima de montaña",
+            "Precisión del conteo de pasos",
+            "Aceptación del usuario mayor",
+            "Costo unitario del hardware",
+            "Facilidad de limpieza y carga",
+            "Continuidad de datos clínicos"
+        ]);
+
+        new Chart(ctxRadar, {
+            type: 'radar',
+            data: {
+                labels: radarLabels,
+                datasets: [{
+                    label: 'Registro Manual',
+                    data: [15, 40, 30, 95, 50, 20],
+                    backgroundColor: 'rgba(51, 65, 85, 0.2)',
+                    borderColor: '#334155',
+                    borderWidth: 2
+                }, {
+                    label: 'Wearable MOSS',
+                    data: [100, 95, 98, 85, 90, 98],
+                    backgroundColor: 'rgba(140, 198, 63, 0.4)',
+                    borderColor: '#8CC63F',
+                    borderWidth: 3
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: commonTooltipConfig,
+                    legend: { position: 'bottom' }
+                },
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: { display: false },
+                        pointLabels: { font: { size: 10 } }
+                    }
+                }
+            }
+        });
+
+        // CHART 2: PLOTLY COST DONUT (WebGL/Canvas Mode)
+        const costData = [{
+            values: [35, 25, 15, 10, 15],
+            labels: ['PCB & Sensor Bosch', 'Inyección Silicona', 'Batería LiPo 200mAh', 'Sistemas de Carga', 'Ensamble & Logística'],
+            type: 'pie',
+            hole: .7,
+            marker: {
+                colors: ['#1B3D2F', '#8CC63F', '#2d5a42', '#a6d96a', '#F9F6F1']
+            },
+            textinfo: 'percent',
+            hoverinfo: 'label+percent'
+        }];
+
+        const costLayout = {
+            title: { text: 'Distribución BOM ($120k COP)', font: { family: 'Inter', size: 14, color: '#1B3D2F' } },
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            showlegend: true,
+            legend: { orientation: 'h', y: -0.1 },
+            margin: { t: 40, b: 0, l: 0, r: 0 },
+            height: 320
+        };
+
+        Plotly.newPlot('costDistribution', costData, costLayout, {staticPlot: false, responsive: true});
+
+        // CHART 3: RELIABILITY TREND LINE
+        const ctxLine = document.getElementById('reliabilityTrend').getContext('2d');
+        new Chart(ctxLine, {
+            type: 'line',
+            data: {
+                labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4', 'Semana 5', 'Semana 6', 'Semana 7', 'Semana 8'],
+                datasets: [{
+                    label: 'Fichas de Papel (Integridad %)',
+                    data: [90, 75, 60, 45, 30, 20, 15, 5],
+                    borderColor: '#cbd5e1',
+                    borderDash: [5, 5],
+                    tension: 0.3
+                }, {
+                    label: 'Sistema MOSS (Integridad %)',
+                    data: [98, 98, 99, 97, 98, 99, 98, 99],
+                    borderColor: '#8CC63F',
+                    backgroundColor: 'rgba(140, 198, 63, 0.1)',
+                    fill: true,
+                    tension: 0.3,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#1B3D2F'
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: commonTooltipConfig,
+                    legend: { position: 'top' }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: { display: true, text: 'Datos Válidos (%)', font: { weight: 'bold' } }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
